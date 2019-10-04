@@ -13,10 +13,7 @@ LOGGER = singer.get_logger()
 SESSION = requests.Session()
 REQUIRED_CONFIG_KEYS = [
     "start_date",
-    "refresh_token",
-    "client_id",
-    "client_secret",
-    "user_agent",
+    "user_agent"
 ]
 
 BASE_API_URL = "https://api.harvestapp.com/v2/"
@@ -27,12 +24,14 @@ AUTH = {}
 
 
 class Auth:
-    def __init__(self, client_id, client_secret, refresh_token):
+    def __init__(self, client_id, client_secret, refresh_token, personal_token, account_id):
         self._client_id = client_id
         self._client_secret = client_secret
+        self._personal_token = personal_token
         self._refresh_token = refresh_token
-        self._account_id = None
-        self._refresh_access_token()
+        self._account_id = account_id
+        if self._personal_token is None:
+            self._refresh_access_token()
 
     @backoff.on_exception(
         backoff.expo,
@@ -69,6 +68,9 @@ class Auth:
         LOGGER.info("Got refreshed access token")
 
     def get_access_token(self):
+        if self._personal_token is not None:
+            return self._personal_token
+
         if self._access_token is not None and self._expires_at > pendulum.now():
             return self._access_token
 
@@ -463,9 +465,10 @@ def do_sync():
 
 def main_impl():
     args = utils.parse_args(REQUIRED_CONFIG_KEYS)
+    # @TODO Check for either OAuth config OR Personal Token
     CONFIG.update(args.config)
     global AUTH  # pylint: disable=global-statement
-    AUTH = Auth(CONFIG['client_id'], CONFIG['client_secret'], CONFIG['refresh_token'])
+    AUTH = Auth(CONFIG['client_id'], CONFIG['client_secret'], CONFIG['refresh_token'], CONFIG['personal_token'], CONFIG['account_id'])
     STATE.update(args.state)
     do_sync()
 
