@@ -25,20 +25,29 @@ REQUIRED_CONFIG_KEYS = [
 ENDPOINTS = [
     "clients",
     "contacts",
-    "roles"
-    "projects",
-    "tasks",
-    "task_assignments",
-    "user_assignments",
-    "users",
-    "project_assignments"
+    "estimate_item_categories",
+    "estimate_line_items",
+    "estimate_messages",
+    "estimates",
     "expense_categories",
     "expenses",
+    "external_reference",
     "invoice_item_categories",
+    "invoice_line_items",
+    "invoice_messages",
+    "invoice_payments",
     "invoices",
-    "estimate_item_categories",
-    "estimates",
-    "time_entries"
+    "project_tasks",
+    "project_users",
+    "projects",
+    "roles",
+    "tasks",
+    "time_entries",
+    "time_entry_external_reference",
+    "user_project_tasks",
+    "user_projects",
+    "user_roles",
+    "users"
 ]
 
 PRIMARY_KEY = "id"
