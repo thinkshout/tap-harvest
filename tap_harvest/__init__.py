@@ -3,10 +3,13 @@
 import os
 
 import backoff
+import json
 import requests
 import pendulum
+import sys
 
 import singer
+from singer import metadata
 from singer import Transformer, utils
 
 LOGGER = singer.get_logger()
@@ -15,6 +18,37 @@ REQUIRED_CONFIG_KEYS = [
     "start_date",
     "user_agent"
 ]
+
+ENDPOINTS = [
+    "clients",
+    "contacts",
+    "estimate_item_categories",
+    "estimate_line_items",
+    "estimate_messages",
+    "estimates",
+    "expense_categories",
+    "expenses",
+    "external_reference",
+    "invoice_item_categories",
+    "invoice_line_items",
+    "invoice_messages",
+    "invoice_payments",
+    "invoices",
+    "project_tasks",
+    "project_users",
+    "projects",
+    "roles",
+    "tasks",
+    "time_entries",
+    "time_entry_external_reference",
+    "user_project_tasks",
+    "user_projects",
+    "user_roles",
+    "users"
+]
+
+PRIMARY_KEY = "id"
+REPLICATION_KEY = 'updated_at'
 
 BASE_API_URL = "https://api.harvestapp.com/v2/"
 BASE_ID_URL = "https://id.getharvest.com/api/v2/"
@@ -462,6 +496,29 @@ def do_sync():
 
     LOGGER.info("Sync complete")
 
+def do_discover():
+    streams = []
+    for endpoint in ENDPOINTS:
+        schema = load_schema(endpoint)
+
+        mdata = metadata.new()
+
+        mdata = metadata.write(mdata, (), 'table-key-properties', [PRIMARY_KEY])
+        mdata = metadata.write(mdata, (), 'valid-replication-keys', [REPLICATION_KEY])
+
+        for field_name in schema['properties'].keys():
+            if field_name == PRIMARY_KEY or field_name == REPLICATION_KEY:
+                mdata = metadata.write(mdata, ('properties', field_name), 'inclusion', 'automatic')
+            else:
+                mdata = metadata.write(mdata, ('properties', field_name), 'inclusion', 'available')
+
+        streams.append({'stream': endpoint,
+                        'tap_stream_id': endpoint,
+                        'schema': schema,
+                        'metadata': metadata.to_list(mdata)})
+
+    catalog = {"streams": streams}
+    json.dump(catalog, sys.stdout, indent=2)
 
 def main_impl():
     args = utils.parse_args(REQUIRED_CONFIG_KEYS)
@@ -470,8 +527,10 @@ def main_impl():
     global AUTH  # pylint: disable=global-statement
     AUTH = Auth(CONFIG['client_id'], CONFIG['client_secret'], CONFIG['refresh_token'], CONFIG['personal_token'], CONFIG['account_id'])
     STATE.update(args.state)
-    do_sync()
-
+    if args.discover:
+        do_discover()
+    elif args.catalog:
+        do_sync(args.catalog)
 
 def main():
     try:
