@@ -249,13 +249,6 @@ def sync_endpoint(endpoint, schema, mdata, date_fields=None, with_updated_since=
 
     singer.write_state(STATE)
 
-def is_selected(stream, catalog):
-    next((x for x in catalog.streams if x.metadata.selected == value), None)
-    mdata = metadata.to_map(stream.metadata)
-    is_selected = metadata.get(mdata, (), 'selected')
-    if is_selected:
-        return true
-
 def do_sync(catalog):
     LOGGER.info("Starting sync")
 
@@ -263,6 +256,7 @@ def do_sync(catalog):
     
     for stream in catalog.streams:
         mdata = metadata.to_map(stream.metadata)
+        
         is_selected = metadata.get(mdata, (), 'selected')
         if is_selected:
             sync_endpoint(stream.tap_stream_id, stream.schema.to_dict(), mdata)
@@ -279,12 +273,12 @@ def do_discover():
             'stream' : endpoint,
             'tap_stream_id' : endpoint,
             'schema' : schema,
-            'selected': True,
             'metadata' : metadata.get_standard_metadata(schema,
                                             endpoint,
                                             [PRIMARY_KEY],
                                             [REPLICATION_KEY])
         }
+        metadata.write(catalog_entry, (), 'selected', True)
         streams.append(catalog_entry)
 
     catalog = {"streams": streams}
