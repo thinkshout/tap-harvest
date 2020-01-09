@@ -1,11 +1,17 @@
 {
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": {
       "type": ["null", "integer"]
     },
-    "client_id": {
-      "type": ["null", "integer"]
+    "client": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      }
     },
     "estimate_id": {
       "type": ["null", "integer"]

@@ -1,38 +1,94 @@
 {
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": {
       "type": ["null", "integer"]
     },
-    "client_id": {
-      "type": ["null", "integer"]
+    "client": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      }
     },
-    "project_id": {
-      "type": ["null", "integer"]
+    "project": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      },
+      "code": {
+        "type": ["null", "string"]
+      }
     },
-    "expense_category_id": {
-      "type": ["null", "integer"]
+    "expense_category": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      },
+      "unit_name": {
+        "type": ["null", "string"]
+      },
+      "unit_price": {
+        "type": ["null", "number"]
+      }
     },
-    "user_id": {
-      "type": ["null", "integer"]
+    "user": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      }
     },
-    "user_assignment_id": {
-      "type": ["null", "integer"]
+    "user_assignment": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "is_active": {
+        "type": ["null", "boolean"]
+      },
+      "is_project_manager": {
+        "type": ["null", "boolean"]
+      },
+      "hourly_rate": {
+        "type": ["null", "number"]
+      },
+      "use_default_rates": {
+        "type": ["null", "boolean"]
+      },
+      "budget": {
+        "type": ["null", "number"]
+      },
+      "created_at": {
+        "type": ["null", "string"],
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": ["null", "string"],
+        "format": "date-time"
+      }
     },
-    "receipt_url": {
-      "type": ["null", "string"]
+    "receipt": {
+      "url": {
+        "type": ["null", "string"]
+      },
+      "file_name": {
+        "type": ["null", "string"]
+      }
     },
-    "receipt_file_name": {
-      "type": ["null", "string"]
-    },
-    "receipt_file_size": {
-      "type": ["null", "integer"]
-    },
-    "receipt_content_type": {
-      "type": ["null", "string"]
-    },
-    "invoice_id": {
-      "type": ["null", "integer"]
+    "invoice": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "number": {
+        "type": ["null", "string"]
+      }
     },
     "notes": {
       "type": ["null", "string"]

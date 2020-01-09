@@ -1,5 +1,6 @@
 {
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": {
       "type": ["null", "integer"]
@@ -8,29 +9,118 @@
       "type": ["null", "string"],
       "format": "date-time"
     },
-    "user_id": {
-      "type": ["null", "integer"]
+    "user": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      }
     },
-    "user_assignment_id": {
-      "type": ["null", "integer"]
+    "user_assignment": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "is_active": {
+        "type": ["null", "boolean"]
+      },
+      "is_project_manager": {
+        "type": ["null", "boolean"]
+      },
+      "hourly_rate": {
+        "type": ["null", "number"]
+      },
+      "use_default_rates": {
+        "type": ["null", "boolean"]
+      },
+      "budget": {
+        "type": ["null", "number"]
+      },
+      "created_at": {
+        "type": ["null", "string"],
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": ["null", "string"],
+        "format": "date-time"
+      }
     },
-    "client_id": {
-      "type": ["null", "integer"]
+    "client": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      }
     },
-    "project_id": {
-      "type": ["null", "integer"]
+    "project": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      },
+      "code": {
+        "type": ["null", "string"]
+      }
     },
-    "task_id": {
-      "type": ["null", "integer"]
+    "task": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      }
     },
-    "task_assignment_id": {
-      "type": ["null", "integer"]
+    "task_assignment": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "is_active": {
+        "type": ["null", "boolean"]
+      },
+      "billable": {
+        "type": ["null", "boolean"]
+      },
+      "hourly_rate": {
+        "type": ["null", "number"]
+      },
+      "budget": {
+        "type": ["null", "number"]
+      },
+      "created_at": {
+        "type": ["null", "string"],
+        "format": "date-time"
+      },
+      "updated_at": {
+        "type": ["null", "string"],
+        "format": "date-time"
+      }
     },
-    "external_reference_id": {
-      "type": ["null", "string"]
+    "external_reference": {
+      "id": {
+        "type": ["null", "string"]
+      },
+      "group_id": {
+        "type": ["null", "string"]
+      },
+      "permalink": {
+        "type": ["null", "string"]
+      },
+      "service": {
+        "type": ["null", "string"]
+      },
+      "service_icon_url": {
+        "type": ["null", "string"]
+      }
     },
-    "invoice_id": {
-      "type": ["null", "integer"]
+    "invoice": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "number": {
+        "type": ["null", "string"]
+      }
     },
     "hours": {
       "type": ["null", "number"]

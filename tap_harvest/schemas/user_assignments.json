@@ -1,14 +1,28 @@
 {
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": {
       "type": ["null", "integer"]
     },
-    "project_id": {
-      "type": ["null", "integer"]
+    "project": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      },
+      "code": {
+        "type": ["null", "string"]
+      }
     },
-    "user_id": {
-      "type": ["null", "integer"]
+    "user": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      }
     },
     "is_active": {
       "type": ["null", "boolean"]

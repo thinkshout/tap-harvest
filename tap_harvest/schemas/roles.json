@@ -1,11 +1,18 @@
 {
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": {
       "type": ["null", "integer"]
     },
     "name": {
       "type": ["null", "string"]
+    },
+    "user_ids": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
     },
     "created_at": {
       "type": ["null", "string"],

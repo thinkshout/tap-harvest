@@ -1,13 +1,33 @@
 {
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": {
       "type": ["null", "integer"]
     },
+    "project": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      },
+      "code": {
+        "type": ["null", "string"]
+      }
+    },
+    "task": {
+      "id": {
+        "type": ["null", "integer"]
+      },
+      "name": {
+        "type": ["null", "string"]
+      }
+    },
     "is_active": {
       "type": ["null", "boolean"]
     },
-    "is_project_manager": {
+    "billable": {
       "type": ["null", "boolean"]
     },
     "hourly_rate": {
@@ -23,15 +43,6 @@
     "updated_at": {
       "type": ["null", "string"],
       "format": "date-time"
-    },
-    "project_id": {
-      "type": ["null", "integer"]
-    },
-    "client_id": {
-      "type": ["null", "integer"]
-    },
-    "user_id": {
-      "type": ["null", "integer"]
     }
   }
 }

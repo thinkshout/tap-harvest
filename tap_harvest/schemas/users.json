@@ -1,5 +1,6 @@
 {
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": {
       "type": ["null", "integer"]
@@ -51,6 +52,12 @@
     },
     "cost_rate": {
       "type": ["null", "number"]
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "avatar_url": {
       "type": ["null", "string"]

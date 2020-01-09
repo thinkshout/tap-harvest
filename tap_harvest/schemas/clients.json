@@ -1,5 +1,6 @@
 {
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": {
       "type": ["null", "integer"]
@@ -11,6 +12,9 @@
       "type": ["null", "boolean"]
     },
     "address": {
+      "type": ["null", "string"]
+    },
+    "statement_key": {
       "type": ["null", "string"]
     },
     "currency": {
