@@ -196,8 +196,7 @@ def get_company():
     return request(url)
 
 
-def sync_endpoint(endpoint, schema, mdata, date_fields=None, with_updated_since=True, #pylint: disable=too-many-arguments
-                  for_each_handler=None, map_handler=None, object_to_id=None):
+def sync_endpoint(endpoint, schema, mdata, date_fields=None, with_updated_since=True #pylint: disable=too-many-arguments):
 
     singer.write_schema(endpoint,
                         schema,
@@ -219,16 +218,6 @@ def sync_endpoint(endpoint, schema, mdata, date_fields=None, with_updated_since=
             time_extracted = utils.now()
 
             for row in data:
-                if map_handler is not None:
-                    row = map_handler(row)
-
-                if object_to_id is not None:
-                    for key in object_to_id:
-                        if row[key] is not None:
-                            row[key + '_id'] = row[key]['id']
-                        else:
-                            row[key + '_id'] = None
-
                 remove_empty_date_times(row, schema)
 
                 item = transformer.transform(row, schema, mdata)
@@ -239,10 +228,6 @@ def sync_endpoint(endpoint, schema, mdata, date_fields=None, with_updated_since=
                     singer.write_record(endpoint,
                                         item,
                                         time_extracted=time_extracted)
-
-                    # take any additional actions required for the currently loaded endpoint
-                    if for_each_handler is not None:
-                        for_each_handler(row, time_extracted=time_extracted)
 
                     utils.update_state(STATE, endpoint, item[REPLICATION_KEY])
             page = response['next_page']
