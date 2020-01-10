@@ -4,6 +4,7 @@ A singer.io tap for extracting data from the Harvest REST API, written in python
 
 API V1 Author: Jordan Ryan (jordan@facetinteractive.com)
 API V2 Author: Steven Hernandez (steven.hernandez@fostermade.co)
+Rewrite of API V2 Author: Tauno Hogue (tauno@thinkshout.com)
 
 ## Quick start
 
@@ -36,21 +37,17 @@ API V2 Author: Steven Hernandez (steven.hernandez@fostermade.co)
         "clients": "2000-01-01T00:00:00Z",
         "contacts": "2000-01-01T00:00:00Z",
         "estimate_item_categories": "2000-01-01T00:00:00Z",
-        "estimate_messages": "2000-01-01T00:00:00Z",
         "estimates": "2000-01-01T00:00:00Z",
         "expense_categories": "2000-01-01T00:00:00Z",
         "expenses": "2000-01-01T00:00:00Z",
         "invoice_item_categories": "2000-01-01T00:00:00Z",
-        "invoice_messages": "2000-01-01T00:00:00Z",
-        "invoice_payments": "2000-01-01T00:00:00Z",
         "invoices": "2000-01-01T00:00:00Z",
-        "project_tasks": "2000-01-01T00:00:00Z",
-        "project_users": "2000-01-01T00:00:00Z",
         "projects": "2000-01-01T00:00:00Z",
         "roles": "2000-01-01T00:00:00Z",
+        "task_assignments": "2000-01-01T00:00:00Z",
         "tasks": "2000-01-01T00:00:00Z",
         "time_entries": "2000-01-01T00:00:00Z",
-        "user_projects": "2000-01-01T00:00:00Z",
+        "user_assignments": "2000-01-01T00:00:00Z",
         "users": "2000-01-01T00:00:00Z"
     }
     ```
