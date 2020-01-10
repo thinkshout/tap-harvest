@@ -7,6 +7,7 @@ import json
 import requests
 import pendulum
 import sys
+import time
 
 import singer
 from singer import metadata
@@ -183,6 +184,8 @@ def remove_empty_date_times(item, schema):
         if item.get(field) is None:
             del item[field]
 
+def get_stream_version(tap_stream_id):
+    return int(time.time() * 1000)
 
 def append_times_to_dates(item, date_fields):
     if date_fields:
@@ -196,25 +199,38 @@ def get_company():
     return request(url)
 
 
-def sync_endpoint(endpoint, schema, mdata, date_fields=None, with_updated_since=True #pylint: disable=too-many-arguments):
+def sync_endpoint(stream, schema, mdata, date_fields=None):
 
-    singer.write_schema(endpoint,
+    singer.write_schema(stream.tap_stream_id,
                         schema,
                         [PRIMARY_KEY],
                         bookmark_properties=[REPLICATION_KEY])
 
-    start = get_start(endpoint)
-    start_dt = pendulum.parse(start)
-    updated_since = start_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-    url = get_url(endpoint)
+    start = get_start(stream.tap_stream_id)
+    # Check if the stream includes the replication key
+    if metadata.get(mdata, ('properties', REPLICATION_KEY), 'selected'):
+        with_updated_since = True
+        start_dt = pendulum.parse(start)
+        updated_since = start_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    else:
+        with_updated_since = False
+
+    url = get_url(stream.tap_stream_id)
+
+    stream_version = get_stream_version(stream.tap_stream_id)
+    activate_version_message = singer.ActivateVersionMessage(
+        stream=stream.stream,
+        version=stream_version
+    )
 
     with Transformer() as transformer:
         page = 1
         while page is not None:
+        
             params = {"updated_since": updated_since} if with_updated_since else {}
             params['page'] = page
             response = request(url, params)
-            data = response[endpoint]
+            data = response[stream.tap_stream_id]
             time_extracted = utils.now()
 
             for row in data:
@@ -222,17 +238,28 @@ def sync_endpoint(endpoint, schema, mdata, date_fields=None, with_updated_since=
 
                 item = transformer.transform(row, schema, mdata)
 
+                # @TODO Not currently passing in date_fields values. Check mdata instead?
                 append_times_to_dates(item, date_fields)
 
-                if item[REPLICATION_KEY] >= start:
-                    singer.write_record(endpoint,
-                                        item,
-                                        time_extracted=time_extracted)
+                if with_updated_since:
+                    updated_at = item[REPLICATION_KEY]
+                else:
+                    updated_at = start
 
-                    utils.update_state(STATE, endpoint, item[REPLICATION_KEY])
+                if updated_at >= start:
+                    new_record = singer.RecordMessage(
+                        stream=stream.stream,
+                        record=item,
+                        version=stream_version,
+                        time_extracted=time_extracted)
+                    singer.write_message(new_record)
+
+                    utils.update_state(STATE, stream.tap_stream_id, updated_at)
+
             page = response['next_page']
 
     singer.write_state(STATE)
+    singer.write_message(activate_version_message)
 
 def do_sync(catalog):
     LOGGER.info("Starting sync")
@@ -244,7 +271,7 @@ def do_sync(catalog):
         
         is_selected = metadata.get(mdata, (), 'selected')
         if is_selected:
-            sync_endpoint(stream.tap_stream_id, stream.schema.to_dict(), mdata)
+            sync_endpoint(stream, stream.schema.to_dict(), mdata)
 
     LOGGER.info("Sync complete")
 
