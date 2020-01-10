@@ -281,16 +281,21 @@ def do_discover():
 
     for endpoint in ENDPOINTS:
         schema = load_schema(endpoint)
+
+        mdata = metadata.get_standard_metadata(schema,
+            endpoint,
+            [PRIMARY_KEY],
+            [REPLICATION_KEY])
+
+        mdata = metadata.to_list(metadata.write(metadata.to_map(mdata), (), 'selected', True))
+
         catalog_entry = {
             'stream' : endpoint,
             'tap_stream_id' : endpoint,
             'schema' : schema,
-            'metadata' : metadata.get_standard_metadata(schema,
-                                            endpoint,
-                                            [PRIMARY_KEY],
-                                            [REPLICATION_KEY])
+            'metadata' : mdata
         }
-        metadata.write(catalog_entry, (), 'selected', True)
+
         streams.append(catalog_entry)
 
     catalog = {"streams": streams}
