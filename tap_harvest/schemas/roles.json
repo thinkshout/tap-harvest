@@ -9,7 +9,7 @@
       "type": ["null", "string"]
     },
     "user_ids": {
-      "type": "array",
+      "type": ["null", "array"],
       "items": {
         "type": "number"
       }

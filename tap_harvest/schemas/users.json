@@ -54,7 +54,7 @@
       "type": ["null", "number"]
     },
     "roles": {
-      "type": "array",
+      "type": ["none", "array"],
       "items": {
         "type": "string"
       }

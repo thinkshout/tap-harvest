@@ -10,116 +10,140 @@
       "format": "date-time"
     },
     "user": {
-      "id": {
-        "type": ["null", "integer"]
-      },
-      "name": {
-        "type": ["null", "string"]
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "name": {
+          "type": ["null", "string"]
+        }
       }
     },
     "user_assignment": {
-      "id": {
-        "type": ["null", "integer"]
-      },
-      "is_active": {
-        "type": ["null", "boolean"]
-      },
-      "is_project_manager": {
-        "type": ["null", "boolean"]
-      },
-      "hourly_rate": {
-        "type": ["null", "number"]
-      },
-      "use_default_rates": {
-        "type": ["null", "boolean"]
-      },
-      "budget": {
-        "type": ["null", "number"]
-      },
-      "created_at": {
-        "type": ["null", "string"],
-        "format": "date-time"
-      },
-      "updated_at": {
-        "type": ["null", "string"],
-        "format": "date-time"
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "is_active": {
+          "type": ["null", "boolean"]
+        },
+        "is_project_manager": {
+          "type": ["null", "boolean"]
+        },
+        "hourly_rate": {
+          "type": ["null", "number"]
+        },
+        "use_default_rates": {
+          "type": ["null", "boolean"]
+        },
+        "budget": {
+          "type": ["null", "number"]
+        },
+        "created_at": {
+          "type": ["null", "string"],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": ["null", "string"],
+          "format": "date-time"
+        }
       }
     },
     "client": {
-      "id": {
-        "type": ["null", "integer"]
-      },
-      "name": {
-        "type": ["null", "string"]
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "name": {
+          "type": ["null", "string"]
+        }
       }
     },
     "project": {
-      "id": {
-        "type": ["null", "integer"]
-      },
-      "name": {
-        "type": ["null", "string"]
-      },
-      "code": {
-        "type": ["null", "string"]
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "name": {
+          "type": ["null", "string"]
+        },
+        "code": {
+          "type": ["null", "string"]
+        }
       }
     },
     "task": {
-      "id": {
-        "type": ["null", "integer"]
-      },
-      "name": {
-        "type": ["null", "string"]
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "name": {
+          "type": ["null", "string"]
+        }
       }
     },
     "task_assignment": {
-      "id": {
-        "type": ["null", "integer"]
-      },
-      "is_active": {
-        "type": ["null", "boolean"]
-      },
-      "billable": {
-        "type": ["null", "boolean"]
-      },
-      "hourly_rate": {
-        "type": ["null", "number"]
-      },
-      "budget": {
-        "type": ["null", "number"]
-      },
-      "created_at": {
-        "type": ["null", "string"],
-        "format": "date-time"
-      },
-      "updated_at": {
-        "type": ["null", "string"],
-        "format": "date-time"
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "is_active": {
+          "type": ["null", "boolean"]
+        },
+        "billable": {
+          "type": ["null", "boolean"]
+        },
+        "hourly_rate": {
+          "type": ["null", "number"]
+        },
+        "budget": {
+          "type": ["null", "number"]
+        },
+        "created_at": {
+          "type": ["null", "string"],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": ["null", "string"],
+          "format": "date-time"
+        }
       }
     },
     "external_reference": {
-      "id": {
-        "type": ["null", "string"]
-      },
-      "group_id": {
-        "type": ["null", "string"]
-      },
-      "permalink": {
-        "type": ["null", "string"]
-      },
-      "service": {
-        "type": ["null", "string"]
-      },
-      "service_icon_url": {
-        "type": ["null", "string"]
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "string"]
+        },
+        "group_id": {
+          "type": ["null", "string"]
+        },
+        "permalink": {
+          "type": ["null", "string"]
+        },
+        "service": {
+          "type": ["null", "string"]
+        },
+        "service_icon_url": {
+          "type": ["null", "string"]
+        }
       }
     },
     "invoice": {
-      "id": {
-        "type": ["null", "integer"]
-      },
-      "number": {
-        "type": ["null", "string"]
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "number": {
+          "type": ["null", "string"]
+        }
       }
     },
     "hours": {
