@@ -5,11 +5,27 @@
     "id": {
       "type": ["null", "integer"]
     },
-    "client_id": {
-      "type": ["null", "integer"]
+    "client": {
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "name": {
+          "type": ["null", "string"]
+        }
+      }
     },
-    "creator_id": {
-      "type": ["null", "integer"]
+    "creator": {
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "name": {
+          "type": ["null", "string"]
+        }
+      }
     },
     "client_key": {
       "type": ["null", "string"]

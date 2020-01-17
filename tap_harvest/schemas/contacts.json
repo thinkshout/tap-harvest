@@ -6,11 +6,14 @@
       "type": ["null", "integer"]
     },
     "client": {
-      "id": {
-        "type": ["null", "integer"]
-      },
-      "name": {
-        "type": ["null", "string"]
+      "type": ["null", "object"],
+      "properties": {
+        "id": {
+          "type": ["null", "integer"]
+        },
+        "name": {
+          "type": ["null", "string"]
+        }
       }
     },
     "title": {
