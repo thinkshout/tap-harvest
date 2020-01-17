@@ -265,7 +265,7 @@ def do_sync(catalog):
     LOGGER.info("Starting sync")
 
     company = get_company()
-    
+
     for stream in catalog.streams:
         mdata = metadata.to_map(stream.metadata)
         
@@ -278,8 +278,24 @@ def do_sync(catalog):
 def do_discover():
     streams = []
     catalog = []
+    exclude = []
+
+    # Check if invoices, expenses and/or estimates are enabled
+    company = get_company()
+    if company['expense_feature'] == False:
+        exclude.append('expenses')
+        exclude.append('expense_categories')
+    if company['invoice_feature'] == False:
+        exclude.append('invoices')
+        exclude.append('invoice_item_categories')
+    if company['estimate_feature'] == False:
+        exclude.append('estimates')
+        exclude.append('estimate_item_categories')
 
     for endpoint in ENDPOINTS:
+        if endpoint in exclude:
+            continue
+
         schema = load_schema(endpoint)
 
         mdata = metadata.get_standard_metadata(schema,
