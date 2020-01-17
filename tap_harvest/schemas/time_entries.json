@@ -169,12 +169,10 @@
       "format": "date-time"
     },
     "started_time": {
-      "type": ["null", "string"],
-      "format": "time"
+      "type": ["null", "string"]
     },
     "ended_time": {
-      "type": ["null", "string"],
-      "format": "time"
+      "type": ["null", "string"]
     },
     "is_running": {
       "type": ["null", "boolean"]
